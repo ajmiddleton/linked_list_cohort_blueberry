@@ -29,7 +29,7 @@ class LinkedListItem
   end
 
   def next_item=(next_obj)
-    raise ArgumentError if next_obj.object_id == self.object_id
+    raise ArgumentError if next_obj === self
     @next_item = next_obj
   end
 
