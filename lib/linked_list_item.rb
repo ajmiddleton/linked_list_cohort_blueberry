@@ -29,19 +29,12 @@ class LinkedListItem
   end
 
   def next_item=(next_obj)
-    if next_obj.object_id == self.object_id
-      raise ArgumentError
-    else
-      @next_item = next_obj
-    end
+    raise ArgumentError if next_obj.object_id == self.object_id
+    @next_item = next_obj
   end
 
   def last?
-    if @next_item
-      false
-    else
-      true
-    end
+    @next_item ? false : true
   end
 
   def append(lli)
