@@ -7,9 +7,7 @@ class LinkedList
     @head = nil
     @size = 0
 
-    if seed.size > 0
-      seed.each {|s| self.push(s) }
-    end
+    seed.each {|s| self.push(s) } if seed.size > 0
   end
 
   def push(payload)
