@@ -30,11 +30,7 @@ class LinkedList
   end
 
   def to_s
-    if @size == 0
-      "| |"
-    else
-      "| " + @head.print_each + "|"
-    end
+    @size == 0 ? "| |" : "| " + @head.print_each + "|"
   end
 
   def [](index)
