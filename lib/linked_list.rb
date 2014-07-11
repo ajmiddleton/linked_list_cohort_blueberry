@@ -22,9 +22,7 @@ class LinkedList
   end
 
   def last
-    if @size == 0
-      return nil
-    else
+    unless @size == 0
       get(@size -1)
     end
   end
