@@ -13,12 +13,7 @@ class LinkedList
   def push(payload)
     @size += 1
     lli = LinkedListItem.new(payload)
-    if @head
-      @head.append(lli)
-    else
-      @head = lli
-    end
-
+    @head ? @head.append(lli) : @head = lli
   end
 
   def get(index)
