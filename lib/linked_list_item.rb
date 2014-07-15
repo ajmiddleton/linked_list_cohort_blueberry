@@ -8,24 +8,19 @@ class LinkedListItem
     @next_item = nil
   end
 
-  def <(li)
-    convert_payload_for_comparison(@payload) < convert_payload_for_comparison(li.payload)
+  def <=>(other_item)
+    if self.payload.class == other_item.payload.class
+      self.payload <=> other_item.payload
+    else
+      precedence = [ Fixnum, String, Symbol ]
+      left = precedence.index(self.payload.class)
+      right = precedence.index(other_item.payload.class)
+      left <=> right
+    end
   end
 
-  def >(li)
-    convert_payload_for_comparison(@payload) > convert_payload_for_comparison(li.payload)
-  end
-
-  def ==(li)
-    convert_payload_for_comparison(@payload) == convert_payload_for_comparison(li.payload)
-  end
-
-  def ===(li)
-    self.object_id == li.object_id
-  end
-
-  def convert_payload_for_comparison(payload)
-    payload.to_s
+  def ===(other_item)
+    self.equal? other_item
   end
 
   def next_item=(next_obj)
@@ -61,18 +56,14 @@ class LinkedListItem
     @next_item.set(index-1, new_payload)
   end
 
-  def print_each(accumulator="")
-    accumulator += if last?
-      @payload.to_s + " "
-    else
-      @payload.to_s + ", "
-    end
+  def each_to_s(accumulator="")
+    accumulator += last? ? @payload.to_s + " " : @payload.to_s + ", "
 
     if last?
       return accumulator
     end
 
-    @next_item.print_each(accumulator)
+    @next_item.each_to_s(accumulator)
   end
 
   def destroy(index, prev=nil)
@@ -87,5 +78,15 @@ class LinkedListItem
     return index if payload == @payload
     return nil if last?
     @next_item.find(payload, index+1)
+  end
+
+  def check_sorted(bool=true)
+    if last?
+      return bool
+    end
+    if @next_item < self
+      return false
+    end
+    @next_item.check_sorted
   end
 end
